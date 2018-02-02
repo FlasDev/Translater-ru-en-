@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WordTranslate</string>
+    <string name="menu_edit">Редактировать</string>
+    <string name="enter_word">Введите слово</string>
+    <string name="enter_translate">Введите перевод</string>
+    <string name="translate">Перевести</string>
 </resources>
