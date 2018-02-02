@@ -1,10 +1,12 @@
-package com.oleg.wordtranslate;
+package com.oleg.wordtranslate.screen;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.oleg.wordtranslate.R;
 
 /**
  * Created by oleg on 02.02.2018.

@@ -1,4 +1,4 @@
-package com.oleg.wordtranslate;
+package com.oleg.wordtranslate.screen.translater;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.oleg.wordtranslate.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

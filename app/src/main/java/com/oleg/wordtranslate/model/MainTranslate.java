@@ -1,4 +1,4 @@
-package com.oleg.wordtranslate;
+package com.oleg.wordtranslate.model;
 
 /**
  * Created by oleg on 02.02.2018.
