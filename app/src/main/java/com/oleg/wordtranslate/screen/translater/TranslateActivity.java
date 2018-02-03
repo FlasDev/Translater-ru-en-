@@ -13,6 +13,7 @@ public class TranslateActivity extends SingleFragmentActivity {
         return TranslatorFragment.newInstance();
     }
 
+
     public static Intent newIntent(Context packageContext){
         Intent intent = new Intent(packageContext, TranslateActivity.class);
         return intent;

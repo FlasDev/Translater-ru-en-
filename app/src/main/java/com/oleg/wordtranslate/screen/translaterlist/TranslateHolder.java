@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.oleg.wordtranslate.R;
 import com.oleg.wordtranslate.model.MainTranslate;
-import com.oleg.wordtranslate.screen.translater.TranslateActivity;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +24,7 @@ public class TranslateHolder extends RecyclerView.ViewHolder {
         super(itemView);
         ButterKnife.bind(this,itemView);
         itemView.setOnClickListener(v -> {
-            Intent intent = TranslateActivity.newIntent(packageContext);
-            packageContext.startActivity(intent);
+            TranslateListFragment.startIntent(packageContext);
     });
     }
 

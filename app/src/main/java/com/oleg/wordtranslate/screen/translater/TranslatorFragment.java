@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.oleg.wordtranslate.R;
+import com.oleg.wordtranslate.model.MainTranslate;
+import com.oleg.wordtranslate.model.TranslateLab;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
  */
 
 public class TranslatorFragment extends Fragment {
+    private TranslateLab mTranslateLab;
     @BindView(R.id.fragment_translator_input_word) TextInputEditText mWordField;
     @BindView(R.id.fragment_translator_input_translate) TextInputEditText mTranslateField;
     @BindView(R.id.fragment_translator_button_translate) Button mTranslateButton;
@@ -30,6 +33,8 @@ public class TranslatorFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         setHasOptionsMenu(true);
+        mTranslateLab = new TranslateLab(getActivity());
+
     }
 
     @Nullable
@@ -47,5 +52,16 @@ public class TranslatorFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.translator_fragment,menu);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //<Удалить>
+        MainTranslate mainTranslate = new MainTranslate();
+        mainTranslate.setTranslate(String.valueOf(mWordField.getText()));
+        mainTranslate.setWord(String.valueOf(mTranslateField.getText()));
+        mTranslateLab.addTranslate(mainTranslate);
+        //</Удалить>
     }
 }
