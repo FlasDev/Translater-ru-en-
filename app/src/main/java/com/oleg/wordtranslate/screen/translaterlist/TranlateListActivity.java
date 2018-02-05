@@ -17,4 +17,9 @@ public class TranlateListActivity extends SingleFragmentActivity {
         return TranslateListFragment.newInstance();
     }
 
+    public static Intent newIntent(Context packageContext){
+        Intent intent = new Intent(packageContext,TranlateListActivity.class);
+        return intent;
+    }
+
 }

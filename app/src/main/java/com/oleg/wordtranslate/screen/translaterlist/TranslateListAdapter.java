@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.oleg.wordtranslate.R;
-import com.oleg.wordtranslate.model.MainTranslate;
+import com.oleg.wordtranslate.model.TranslateDao;
 
 import java.util.List;
 
@@ -16,29 +16,34 @@ import java.util.List;
  */
 
 public class TranslateListAdapter extends RecyclerView.Adapter<TranslateHolder> {
-    private List<MainTranslate> mTranslates;
+    private static final String LOG = "myLogs";
+    private List<TranslateDao> mTranslates;
     private Context mContext;
+    private TranslateListFragment mTranslateListFragment;
 
-    public TranslateListAdapter(List<MainTranslate> list, Context context) {
+    public TranslateListAdapter(List<TranslateDao> list, Context context,TranslateListFragment fragment) {
         mTranslates = list;
         mContext = context;
+        mTranslateListFragment = fragment;
     }
 
     @Override
     public TranslateHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater  = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.list_item_translater,parent,false);
-        return new TranslateHolder(view,mContext);
+        return new TranslateHolder(view,mContext,mTranslateListFragment);
     }
 
     @Override
     public void onBindViewHolder(TranslateHolder holder, int position) {
-        MainTranslate mainTranslate = mTranslates.get(position);
-        holder.bindTranslate(mainTranslate);
+        TranslateDao translateDao = mTranslates.get(position);
+        holder.bindTranslate(translateDao,position);
     }
 
     @Override
     public int getItemCount() {
         return mTranslates.size();
     }
+
+
 }

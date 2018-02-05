@@ -9,7 +9,18 @@
         android:icon="@drawable/ic_edit_black_24dp"
         app:showAsAction="withText|ifRoom"
         >
-
     </item>
+
+    <item
+        android:id="@+id/menu_translator_done"
+        android:title="@string/menu_translator_done"
+        android:icon="@drawable/ic_done_black_24dp"
+        app:showAsAction="withText|ifRoom"/>
+
+    <item
+        android:id="@+id/menu_translator_delete"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_delete_black_24dp"
+        app:showAsAction="withText|ifRoom"/>
 
 </menu>

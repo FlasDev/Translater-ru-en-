@@ -1,73 +1,45 @@
 package com.oleg.wordtranslate.model;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
-import com.oleg.wordtranslate.database.TranslateBaseHelper;
-import com.oleg.wordtranslate.database.TranslateCursorWrapper;
-import com.oleg.wordtranslate.database.TranslateDBSchema;
-
-import java.util.ArrayList;
+import com.oleg.wordtranslate.database.TranslateDbDao;
+import android.app.Application;
 import java.util.List;
 
 /**
- * Created by oleg on 02.02.2018.
+ * Created by oleg on 04.02.2018.
  */
 
-public class TranslateLab{
-    private Context mContext;
-    private SQLiteDatabase mDatabase;
+public class TranslateLab {
+    private static final String LOG = "myLogs";
+    private DaoSession mTranslateDaoSession;
 
-
-    public TranslateLab(Context packageContext) {
-        mContext = packageContext.getApplicationContext();
-        mDatabase = new TranslateBaseHelper(mContext).getWritableDatabase();
-
+    public TranslateLab(Application application) {
+        mTranslateDaoSession = ((TranslateDbDao)application).getDaoSession();
     }
 
-   private static ContentValues getContentValues(MainTranslate mainTranslate){
-        ContentValues values = new ContentValues();
-        values.put(TranslateDBSchema.TranslateTable.Colums.UUID, String.valueOf(mainTranslate.getUUID()));
-        values.put(TranslateDBSchema.TranslateTable.Colums.TEXT, String.valueOf(mainTranslate.getWord()));
-        values.put(TranslateDBSchema.TranslateTable.Colums.TRANSLATE, String.valueOf(mainTranslate.getTranslate()));
-        return values;
-   }
+    public List<TranslateDao> loadTranslate(){
+        return mTranslateDaoSession.getTranslateDaoDao().loadAll();
+    }
+    public void addTranslate(TranslateDao translateDao){
+        mTranslateDaoSession.getTranslateDaoDao().insert(translateDao);
+    }
 
-   public void addTranslate(MainTranslate mainTranslate){
-       ContentValues values = getContentValues(mainTranslate);
-       mDatabase.insert(TranslateDBSchema.TranslateTable.NAME,null,values);
-   }
+    public long getNextIdTranslate(){
+        return mTranslateDaoSession.getTranslateDaoDao().count()+1;
+    }
 
+    public TranslateDao loadSingleTranslate(long id){
+        return mTranslateDaoSession.getTranslateDaoDao().load(id);
+    }
 
-   public List<MainTranslate> getTranslate(){
-       List<MainTranslate>mainTranslates = new ArrayList<>();
+    public void deleteSingleTranslate(long id){
+        mTranslateDaoSession.getTranslateDaoDao().deleteByKey(id);
+    }
 
-       TranslateCursorWrapper cursorWrapper = queryTranslate(null,null);
+    public void updateSingleTranslate(TranslateDao translateDao){
+        mTranslateDaoSession.getTranslateDaoDao().update(translateDao);
+    }
 
-       try {
-           cursorWrapper.moveToFirst();
-           while (!cursorWrapper.isAfterLast()){
-               mainTranslates.add(cursorWrapper.getTranslate());
-               cursorWrapper.moveToNext();
-           }
-       }finally {
-           cursorWrapper.close();
-       }
-       return mainTranslates;
-   }
-
-   private TranslateCursorWrapper queryTranslate(String whereClause, String[] whereArgs){
-       Cursor cursor = mDatabase.query(
-               TranslateDBSchema.TranslateTable.NAME,
-               null,
-               whereClause,
-               whereArgs,
-               null,
-               null,
-               null
-       );
-       return new TranslateCursorWrapper(cursor);
-   }
 }
