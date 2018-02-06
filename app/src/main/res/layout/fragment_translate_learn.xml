@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+    <TextView
+        android:padding="7dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:textSize="22dp"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_learn_textWord"
+        tools:text="@string/word"/>
+
+        <TextView
+            android:padding="7dp"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:textSize="22dp"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_learn_textTranslate"
+            tools:text="Перевод"
+        />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_translate_learn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+    <CheckBox
+        android:id="@+id/fragment_learn_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:text="@string/check_word_translate" />
+
+
+
+</LinearLayout>
