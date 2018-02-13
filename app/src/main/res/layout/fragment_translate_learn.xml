@@ -38,6 +38,18 @@
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/translate_learn_true_answer"
+        android:text="@string/count_true_answer"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/translate_learn_false_answer"
+        android:text="@string/count_false_answer"
+        android:layout_height="wrap_content" />
+
     <CheckBox
         android:id="@+id/fragment_learn_checkbox"
         android:layout_width="match_parent"

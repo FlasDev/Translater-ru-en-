@@ -18,17 +18,19 @@ import java.util.List;
 public class TranslateLearnAdapter extends RecyclerView.Adapter<TranslateLearnHolder> {
     private List<TranslateDao> mAnswerList;
     private Context mContext;
+    private TranslateLearnFragment mTranslateLearnFragment;
 
-    public TranslateLearnAdapter(List<TranslateDao> answerList, Context context) {
+    public TranslateLearnAdapter(List<TranslateDao> answerList, Context context,TranslateLearnFragment translateLearnFragment) {
         mAnswerList = answerList;
         mContext = context;
+        mTranslateLearnFragment = translateLearnFragment;
     }
 
     @Override
     public TranslateLearnHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.list_item_learn_translate,parent,false);
-        return new TranslateLearnHolder(view);
+        return new TranslateLearnHolder(view,mTranslateLearnFragment);
     }
 
     @Override

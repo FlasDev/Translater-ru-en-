@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,18 +19,27 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.oleg.wordtranslate.R;
+import com.oleg.wordtranslate.internet.ApiUtils;
+import com.oleg.wordtranslate.internet.IYandex;
 import com.oleg.wordtranslate.model.TranslateDao;
 import com.oleg.wordtranslate.model.TranslateLab;
+import com.oleg.wordtranslate.model.YandexLangs;
+import com.oleg.wordtranslate.model.YandexTranslate;
+import com.oleg.wordtranslate.screen.translatelearn.TranslateLearnFragment;
 import com.oleg.wordtranslate.screen.translaterlist.TranlateListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by oleg on 02.02.2018.
  */
 
 public class TranslatorFragment extends Fragment {
+    private static final String LOG = "TranslatorFragment";
     private TranslateLab mTranslateLab;
     @BindView(R.id.fragment_translator_input_word) TextInputEditText mWordField;
     @BindView(R.id.fragment_translator_input_translate) TextInputEditText mTranslateField;
@@ -41,7 +51,7 @@ public class TranslatorFragment extends Fragment {
         setHasOptionsMenu(true);
         mTranslateLab = new TranslateLab(getActivity().getApplication());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setTitle("Добавление");
+        activity.getSupportActionBar().setTitle("Добавление. Only ru-en");
     }
 
     @Nullable
@@ -49,6 +59,25 @@ public class TranslatorFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_translator, container, false);
         ButterKnife.bind(this,view);
+        mTranslateButton.setOnClickListener(v -> {
+            Call<YandexTranslate> yandex = ApiUtils.getYandexApi().getLangs(ApiUtils.API,mWordField.getText().toString(),"ru-en");
+
+            yandex.enqueue(new Callback<YandexTranslate>() {
+                @Override
+                public void onResponse(Call<YandexTranslate> call, Response<YandexTranslate> response) {
+                    mTranslateField.setText("");
+                    for(int i = 0; i < response.body().getText().size();i++){
+                        mTranslateField.setText(response.body().getText().get(i));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<YandexTranslate> call, Throwable t) {
+
+                }
+            });
+
+        });
         return view;
     }
 

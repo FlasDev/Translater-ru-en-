@@ -13,6 +13,8 @@
     <string name="translate_edit">Перевод</string>
     <string name="refresh">Перегрузить</string>
     <string name="subtitle_format">Количество слов: %1$s</string>
+    <string name="count_true_answer">Количество правильных ответов: %1$s</string>
+    <string name="count_false_answer">Количество неправильных ответов: %1$s</string>
     <string name="dictionary">Словарь</string>
     <string name="add_words">Добавить слово</string>
     <string name="learn_words">Выучить слова</string>

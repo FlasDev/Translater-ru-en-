@@ -1,8 +1,10 @@
 package com.oleg.wordtranslate.screen.translatelearn;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.oleg.wordtranslate.R;
@@ -17,19 +19,26 @@ import butterknife.ButterKnife;
 
 public class TranslateLearnHolder extends RecyclerView.ViewHolder {
     private static final String LOG = "myLogs";
-    @BindView(R.id.item_recycler_view_learn)
-    RadioButton mCheckedTextView;
+    private TranslateDao mTranslateDao;
+    @BindView(R.id.item_recycler_view_learn) Button mButtonChecked;
 
-    public TranslateLearnHolder(View itemView) {
+
+    public TranslateLearnHolder(View itemView,TranslateLearnFragment translateLearnFragment) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
-        itemView.setOnClickListener(v -> {
+        ButterKnife.bind(this, itemView);
+        mButtonChecked.setOnClickListener(v -> {
+            if(translateLearnFragment.isTrueAnswer(mTranslateDao.getName(),itemView)){
+                translateLearnFragment.updateUI();
+            }else {
+                translateLearnFragment.loadLeftAnswer();
+            }
         });
+
     }
 
     public void bindAnswerTranslate(TranslateDao translateDao){
-        Log.d(LOG,"holder "+translateDao.getName());
-        mCheckedTextView.setText(translateDao.getTranslate());
+        mTranslateDao = translateDao;
+        mButtonChecked.setText(translateDao.getName());
     }
 
 
